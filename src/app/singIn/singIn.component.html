@@ -1,0 +1,131 @@
+<div class="global-login">
+    <div class="login login-left">
+        <div class="left">
+            <img src="../../assets/images/images.jpg" alt="reconciliation_app">
+            <p>RECONCILIATION CMS APP-GOS </p>
+        </div>
+    </div>
+    <div class="login login-right">
+        <div class="header-form">
+            <p>Se connecter <span nz-icon nzType="key" nzTheme="outline" style="color: black;"></span></p>
+        </div>
+        <form nz-form [formGroup]="validateForm" class="login-form" style="margin-top: 3rem;padding: 0rem 6rem;" (ngSubmit)="submitFormLogin()">
+            <nz-form-item style="margin-bottom: 2rem  ;">
+                <nz-form-control nzErrorTip="Entrer votre mot de login Svp!">
+                    <nz-input-group nzPrefixIcon="user">
+                        <input type="text" style="height: 2rem" nz-input formControlName="login" placeholder="login" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Entrer votre mot de Password Svp!">
+                    <nz-input-group nzPrefixIcon="lock">
+                        <input type="password" style="height: 2rem" nz-input formControlName="password" placeholder="Password" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <div nz-row class="login-form-margin">
+                <div nz-col [nzSpan]="12">
+                    <label nz-checkbox>
+                      <span style="color: orange;font-weight: 500;">Remember me</span>
+                    </label>
+                </div>
+                <div nz-col [nzSpan]="12">
+                    <a class="login-form-forgot" style="color: orange;font-weight: 500;">Mot de pass oublié</a>
+                </div>
+            </div>
+            <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Connection</button>
+            <a (click)="showModalRegister()" class="mt-1" style="background-color: orange;color: black; border: none;display: flex;justify-content: center;font-weight: 600;height: 2.4rem;align-items: center;" nz-button>S'enregistrer maintenant</a>
+        </form>
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()" [nzMaskClosable]="false" [nzOkLoading]="isOkLoading" nzWidth="60%">
+    <ng-template style="font-size: 1rem;" #modalTitle>{{titleModif}}</ng-template>
+    <div *nzModalContent>
+        <form [formGroup]="validateFormRegister" (ngSubmit)="submitFormRegister()" class="form-content">
+            <div class="content-el">
+                <div class="login-part-one">
+                    <nz-form-item style="margin: 0 0 1px;">
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nom">Nom</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer un nom svp">
+                            <input nz-input formControlName="nom" id="nom" style="width:100% ;  border: 2px solid gray;
+                          " />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired>E-mail</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer un mail correcte">
+                            <input nz-input id="email" formControlName="email" style="width:100% ;  border: 2px solid gray;
+                           " />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer un mot de passe qui vous convient">
+                            <input nz-input type="password" style="border: 2px solid gray;" id="password" formControlName="password" (ngModelChange)="updateConfirmValidator()" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="24" [nzErrorTip]="errorTpl">
+                            <input nz-input type="password" style="border: 2px solid gray;" formControlName="checkPassword" id="checkPassword" />
+                            <ng-template #errorTpl let-control>
+                                <ng-container *ngIf="control.hasError('required')">Veuillez confirmer votre mot de passe !</ng-container>
+                                <ng-container *ngIf="control.hasError('confirm')">
+                                    Les deux mots de passe que vous entrez sont incohérents !
+                                </ng-container>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                </div>
+
+                <div class="login-part-two">
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="prenom">Prénoms</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer un  prenom svp">
+                            <input nz-input formControlName="prenom" id="prenom" style="border: 2px solid gray;
+                            " />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="login" nzRequired>Identifiant</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer un login svp">
+                            <input nz-input id="login" formControlName="login" style="border: 2px solid gray;
+                            " />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="contact">Contact</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="20" nzErrorTip="Entrer un contact svp">
+                            <input nz-input style="border: 2px solid gray;
+                            " formControlName="contact" id="contact" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="contact">Image de profil</nz-form-label>
+                        <div style=" width: 100%;">
+                            <input type="file" name="uploadedFile" id="uploadedFile" accept="*/*">
+                            <label class="uploadedFile" for="uploadedFile">
+                              <i class="fas fa-save" style="    margin-right: 1rem;"></i>
+                              Joindre un fichier
+                            </label>
+                            <small style="font-size: 16px; font-weight: 600;"></small>
+                        </div>
+                    </nz-form-item>
+                </div>
+            </div>
+        </form>
+    </div>
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Annuler</button>
+        <button nz-button nzType="primary" (click)="handleOkRegiter()" [nzLoading]="isConfirmLoading">Sauvegarder</button>
+    </ng-template>
+</nz-modal>

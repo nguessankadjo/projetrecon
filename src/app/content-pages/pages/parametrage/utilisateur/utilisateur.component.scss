@@ -1,0 +1,188 @@
+.content-global-utilisateur {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .main-centent {}
+}
+
+.header-left {
+    p {
+        font-size: 2rem;
+        color: black;
+        font-weight: 700;
+    }
+}
+
+.header-rigth {
+    display: flex;
+    justify-content: space-between;
+    max-width: 24rem;
+    width: 101%;
+    gap: 1rem;
+    .search {
+        width: 100%;
+    }
+    .button-create {
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ff7900;
+            border: none;
+            color: black;
+            font-size: 1rem;
+        }
+    }
+}
+
+.main-centent {}
+
+::ng-deep .nz-input-group {
+    // height: 2rem;
+}
+
+[nz-form] {
+    width: 100%;
+    // margin: 1rem;
+}
+
+.ant-form {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, .85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+}
+
+.phone-select {
+    width: 70px;
+}
+
+.register-are {
+    margin-bottom: 8px;
+}
+
+::ng-deep .ant-input-affix-wrapper {
+    position: relative;
+    width: 100%;
+    // padding: 11px 9px;
+    color: rgba(0, 0, 0, .85);
+    font-size: 14px;
+    line-height: 1.5715;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    transition: all .3s;
+    display: inline-flex;
+}
+
+[nz-form] {
+    max-width: 700px;
+}
+
+[nz-form-item] {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.phone-select {
+    width: 70px;
+}
+
+.register-are {
+    margin-bottom: 8px;
+}
+
+.form-content {
+    width: 100% !important;
+    .content-el {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        .login-part-one {
+            width: 100%;
+        }
+        .login-part-two {
+            width: 100%;
+        }
+    }
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.uploadedFile {
+    // border-radius: 14px;
+    color: white;
+    height: 38px;
+    width: 100%;
+    background-color: gray;
+    margin: 1px 0px 1rem;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+::ng-deep .ant-form-item {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0 0 0px;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+    vertical-align: top;
+    transition: margin-bottom .3s 17ms linear;
+}
+
+::ng-deep .ant-form-item-label {
+    flex-grow: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.ant-input {
+    height: 40px;
+}
+
+::ng-deep .ant-modal-title {
+    margin: 0;
+    color: rgba(0, 0, 0, .85);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 22px;
+    word-wrap: break-word;
+}
+
+::ng-deep .ant-select {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, .85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    width: 100%;
+}

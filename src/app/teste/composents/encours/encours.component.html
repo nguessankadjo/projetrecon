@@ -1,0 +1,260 @@
+<div class="main-centent">
+    <div style="text-align: end;">
+        <button nz-button nzType="default" style="color: white ; background-color: rgb(218, 154, 36);border: none;font-size: 1rem;font-weight: 600;align-items: center;border-radius: 10px;" nzDanger> {{ListFactureEncoursChield.length}} Factures en cours</button>
+    </div>
+    <nz-table #smallTable nzSize="middle" [nzData]="ListFactureEncoursChield">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Réference de la facture</th>
+                <th>Faliale associé</th>
+                <th>Type de facture</th>
+                <th>Période</th>
+                <th>Etat actuel</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of smallTable.data;let i = index">
+                <td></td>
+                <td>{{ data.ref }}</td>
+                <td>{{ data.filiale.libFiliale }}</td>
+                <td>{{ data.typefact.libTypeFact }}</td>
+                <td>{{ data.periode }}</td>
+                <td>
+                    <span style="text-align: center;cursor: pointer;" class="badge bg-warning">
+                        {{ data.etatFact.libEtat }}
+                    </span>
+                </td>
+                <!-- (click)="showModalRegister(data)" -->
+                <td style="display: flex;gap: 1rem;">
+                    <button style="    background: #ff7900;
+                border: none;
+                color: white;justify-content: center;
+                display: flex;font-weight: bold;
+                align-items: center;" nz-button nzType="primary" nzShape="circle" (click)="showModalRegister(data)">
+              <span nz-icon nzType="edit" nzTheme="outline"></span>
+              </button>
+                    <!-- <button *ngIf="!importer" (click)="confirmSubmitImprimer(data)" nz-button>Faire l'impression</button> -->
+                    <!-- <button style="background:#2e8b05;
+                border: none;
+                color: black;justify-content: center;
+                display: flex;
+                align-items: center;" nz-button nzType="primary" nzShape="circle">
+              <span nz-icon nzType="eye" nzTheme="outline"></span>
+              </button> -->
+                    <!-- (click)="confirmSubmitDeletLangue(data)" -->
+                    <!-- <button *ngIf="importer" (click)="printFacture()" style="    background: red;
+                border: none;
+                color: black;justify-content: center;
+                display: flex;
+                align-items: center; background-color: green;" nz-button nzType="primary"><span nz-icon nzType="file-pdf" nzTheme="outline"></span>facture</button>
+                    <button #printe printTitle="report" printSectionId="edition-facture" ngxPrint hidden="true" [useExistingCss]="true"></button> -->
+
+                    <!-- <button (click)=printFacture()>Imprimer la feuille</button>
+
+                    <button #printe  ngxPrint hidden="true" [useExistingCss]="true"></button> -->
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]="modalFooter" nzTitle="Modifier la facture en cours" (nzOnCancel)="handleCancel()" nzOkLoading="true" [nzMaskClosable]="false" [nzOkLoading]="isOkLoading" nzWidth="60%">
+    <div *nzModalContent style="    display: flex;
+    justify-content: space-between;
+    gap: 1rem;">
+        <div class="content-one">
+            <div class="content" style="display: flex;gap: 1rem;flex-direction: column;">
+                <div class="div1">
+                    <p>Référence</p>
+                    <p style="color: #ff7900;">{{dataModif.ref}}</p>
+                </div>
+                <div class="div1">
+                    <p>Période</p>
+                    <p>{{dataModif.periode}}</p>
+
+                </div>
+                <div class="div1">
+                    <p>Montant initiale</p>
+                    <p>{{dataModif.montant}}</p>
+
+                </div>
+                <div class="div1">
+                    <p>Montant modifier</p>
+                    <p *ngIf="!dataModif.newMontant">Pas encore Modifier</p>
+                    <p *ngIf="dataModif.newMontant">{{dataModif.newMontant}}</p>
+
+                </div>
+                <div class="div1">
+                    <p>Etat de la facture</p>
+                    <p><span style="text-align: center;cursor: pointer;" class="badge bg-warning">
+                      {{ dataModif.etatFact.libEtat }}
+                  </span></p>
+
+                </div>
+                <div class="div1">
+                    <p>Filiale associée</p>
+                    <p><span style="text-align: center;cursor: pointer;" class="badge bg-success">
+                      {{ dataModif.filiale.libFiliale }}
+                  </span></p>
+                </div>
+                <div class="div1">
+                    <p>Type de facture</p>
+                    <p><span style="text-align: center;cursor: pointer;" class="badge bg-success">
+                    {{ dataModif.typefact.libTypeFact }}
+                </span></p>
+                </div>
+            </div>
+            <!-- <div class="form-montant" *ngIf="expression">
+                <input (ngModelChange)="getEventChange($event)" nz-input name="newMontant" placeholder="Nouveau montant de la facture" [(ngModel)]="newMontant" />
+                <button nz-button nzType="primary" nzDanger style="background-color: black;border: none;">Modifier le montant</button>
+            </div> -->
+
+        </div>
+        <div class="content-two">
+            <p>Modifier l'état de la facture</p>
+            <div class="content-one">
+                <!-- <button nz-button nzType="primary" disabled nzDanger>En cours</button> -->
+                <button [disabled]="disableBtn" nz-button nzType="default" nzDanger (click)="updateValide()">Valider</button>
+                <button [disabled]="disableBtn" nz-button nzType="primary" (click)="updateRejeter()">Rejeter</button>
+                <button [disabled]="disableBtn" printTitle="report" printSectionId="edition-facture" ngxPrint (click)="printFacture(OnFacture)" nz-button nzType="primary" nzGhost>Imprimer la facture</button>
+            </div>
+        </div>
+    </div>
+    <ng-template #modalFooter>
+        <!-- <button nz-button nzType="default" (click)="handleCancel()">Annuler</button>
+        <button nz-button nzType="primary" (click)="handleOkRegiter()">Modifier</button> -->
+    </ng-template>
+</nz-modal>
+<!--  -->
+<!--  -->
+
+<div id="edition-facture" class="centent-edit" style="    display: flex;
+flex-direction: column;
+gap: 15px;" hidden="true">
+    <div class="header" style="display: flex;
+    flex-direction: row;
+    justify-content: space-around;margin-bottom: 32px;">
+        <div style="    width: 100%;    display: flex;
+        align-items: start;
+        gap: 13px;">
+            <img src="../../../../assets/images/orange.jpg" style="    width: 50px;
+            " alt="">
+            <p style="    font-size: 15px;white-space: nowrap;
+            font-weight: 600;">Groupement Orange Services</p>
+        </div>
+        <p style="    width: 100%;    align-items: end;
+        display: flex;
+        font-size: 20px;    white-space: nowrap;    margin-left: -56px;
+    margin-right: 64px;">STATS {{OnFacture.msg}} SERVICES</p>
+        <div style="    width: 100%;    display: flex;
+        flex-direction: column;gap:10px">
+            <div style="    display: flex;
+            justify-content: space-between; font-size: 12px;">
+                <span>ID:</span>
+                <span style="font-size: 9px;">{{OnFacture.identifiant}}</span>
+            </div>
+            <div style="    display: flex;font-size: 12px;
+            justify-content: space-between;">
+                <span>Date of issue:</span>
+                <span>{{OnFacture.date}}</span>
+            </div>
+            <div style="    display: flex;font-size: 12px;
+            justify-content: space-between;    background: orange;">
+                <span>Period::</span>
+                <span>{{OnFacture.periode}}</span>
+            </div>
+            <div style="    display: flex;font-size: 12px;
+            justify-content: space-between;">
+                <span>Currency:</span>
+                <span>{{OnFacture.devise}}</span>
+            </div>
+            <div style="    display: flex;font-size: 12px;
+            justify-content: space-between;">
+                <span>1 BWspan:</span>
+                <span>{{OnFacture.euro}} Euro</span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p>Affiliate: ORANGE {{OnFacture.filiale}}</p>
+    </div>
+
+    <div style="margin-bottom: 64px;
+    font-size: 14px;">
+        <table cellspacing="0" style="    width: 100%;">
+            <tr>
+                <td>&nbsp;</td>
+                <td style="font-size: 12px; white-space: nowrap;">Amount excl tax</td>
+                <td style="font-size: 12px; white-space: nowrap;">Tax (%)</td>
+                <td style="font-size: 12px; white-space: nowrap;">Amount incl Tax</td>
+                <td style="font-size: 12px; white-space: nowrap;">Amount in Euro Excl Tax</td>
+            </tr>
+            <tr style="background: gray;">
+                <td style="    font-size: 12px;
+            font-weight: 600;font-size: 12px; white-space: nowrap;">Revenu collecté</td>
+                <td style="font-size: 12px; white-space: nowrap;"></td>
+                <td style="font-size: 12px; white-space: nowrap;"></td>
+                <td style="font-size: 12px; white-space: nowrap;"></td>
+                <td style="font-size: 12px; white-space: nowrap;"></td>
+            </tr>
+            <tr *ngFor="let item of OnFacture.Rcollecter">
+                <td style="    font-size: 12px;
+            font-weight: 600;font-size: 12px; white-space: nowrap;">{{item.lib}}</td>
+                <td style="font-size: 12px; white-space: nowrap;">{{item.montant}}</td>
+                <td style="font-size: 12px; white-space: nowrap;">{{item.taxe}}</td>
+                <td style="font-size: 12px; white-space: nowrap;">{{item.montantTTC}}</td>
+                <td style="font-size: 12px; white-space: nowrap;">{{item.euroTTC}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin-bottom: 64px;">
+        <table cellspacing="0" style="    width: 100%;">
+            <tr>
+                <td>&nbsp;</td>
+                <td style="    font-size: 12px;font-size: 12px; white-space: nowrap;">CA à partager HT</td>
+                <td style="font-size: 12px; white-space: nowrap;">Pourcentage revenu share (%)</td>
+                <td style="font-size: 12px; white-space: nowrap;">Montant HT</td>
+                <td style="font-size: 12px; white-space: nowrap;">Montant HT en Euro</td>
+            </tr>
+            <tr style="background: gray;">
+                <td style="    font-size: 12px;
+              font-weight: 600;font-size: 12px; white-space: nowrap;">Revenu à partager</td>
+                <td style="font-size: 12px; white-space: nowrap;"></td>
+                <td style="font-size: 12px; white-space: nowrap;"></td>
+                <td style="font-size: 12px; white-space: nowrap;"></td>
+                <td style="font-size: 12px; white-space: nowrap;"></td>
+            </tr>
+            <tr *ngFor="let item of OnFacture.RPartager">
+                <td style="    font-size: 12px;
+              font-weight: 600;font-size: 12px; white-space: nowrap;">{{item.lib}}</td>
+                <td style="font-size: 12px; white-space: nowrap;">{{item.part}}</td>
+                <td style="font-size: 12px; white-space: nowrap;">{{item.montant}}</td>
+                <td style="font-size: 12px; white-space: nowrap;">{{item.montantHT}}</td>
+                <td style="font-size: 12px; white-space: nowrap;">{{item.euroTTC}}</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div style="margin-bottom: 64px;">
+        <table style=" border-collapse: collapse;width: 100%;">
+            <tr>
+                <th style="text-align: center; border: 2px solid black;padding: 10px;">Signature GOS</th>
+                <th style="text-align: center; border: 2px solid black;padding: 10px;">Signature Affiliate</th>
+            </tr>
+            <tr>
+                <td style="border: 2px solid black;padding: 10px;">Nom et Prénoms:</td>
+                <td style="border: 2px solid black;padding: 10px;">Nom et Prénoms:</td>
+            </tr>
+            <tr>
+                <td style="border: 2px solid black;padding: 2rem;">Date et signature:</td>
+                <td style="border: 2px solid black;padding: 2rem;">Date et signature:</td>
+            </tr>
+        </table>
+    </div>
+
+</div>

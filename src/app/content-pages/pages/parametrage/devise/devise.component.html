@@ -1,0 +1,92 @@
+<div class="content-global-utilisateur">
+    <div class="header-content">
+        <div class="header-left">
+            <p>Liste des Devise</p>
+        </div>
+        <div class="header-rigth">
+            <div class="search">
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                    <input type="text" style="height: 25px;" nz-input placeholder="Recherche d'un utilisateur" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <span nz-icon nzType="search"></span>
+                </ng-template>
+            </div>
+            <div class="button-create">
+                <button nz-button nzType="primary" nzShape="circle" (click)="showModalRegister()">
+              <span nz-icon nzType="plus" nzTheme="outline"></span>
+            </button>
+            </div>
+        </div>
+    </div>
+    <div class="main-centent">
+        <nz-table #smallTable nzSize="middle" [nzData]="ListDevise">
+            <thead>
+                <tr>
+                    <th>Libellé de la devise</th>
+                    <th>Valeur en Euro de la devise</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of smallTable.data">
+                    <td>{{ data.libDevise }}</td>
+                    <td>{{ data.value }}</td>
+                    <td style="display: flex;gap: 1rem;">
+                        <button (click)="showModalRegister(data)" style="    background: #ff7900;
+                    border: none;
+                    color: white;justify-content: center;
+                    display: flex;font-weight: bold;
+                    align-items: center;" nz-button nzType="primary" nzShape="circle">
+                  <span nz-icon nzType="edit" nzTheme="outline"></span>
+                  </button>
+                        <button (click)="confirmSubmitDeletDevise(data)" style="    background: red;
+                    border: none;
+                    color: black;justify-content: center;
+                    display: flex;
+                    align-items: center;" nz-button nzType="primary" nzShape="circle"><span nz-icon nzType="delete" nzTheme="outline"></span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()" [nzMaskClosable]="false" [nzOkLoading]="isOkLoading" nzWidth="60%">
+    <ng-template style="font-size: 1rem;" #modalTitle>{{titleModif}}</ng-template>
+    <div *nzModalContent>
+        <form [formGroup]="validateFormRegister" (ngSubmit)="submitFormDevise()" class="form-content">
+            <div class="content-el">
+                <div class="login-part-one">
+
+                    <nz-form-item style="margin: 0 0 1px;">
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="libDevise">Libellé de la devise</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer le libellé de la devise">
+                            <input nz-input formControlName="libDevise" id="libDevise" style="width:100% ;  border: 2px solid gray;
+                    " />
+                        </nz-form-control>
+                    </nz-form-item>
+
+
+
+                </div>
+
+                <div class="login-part-two">
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="value" nzRequired>Valeur de la devise en Euro</nz-form-label>
+                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer la valeur de la Euro">
+                            <input nz-input id="value" formControlName="value" style="width:100% ;  border: 2px solid gray;" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">Annuler</button>
+        <button nz-button nzType="primary" (click)="handleOkRegiter()" [nzLoading]="isConfirmLoading">{{titleBtn}}</button>
+    </ng-template>
+</nz-modal>

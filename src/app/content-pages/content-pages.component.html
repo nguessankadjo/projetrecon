@@ -1,0 +1,166 @@
+<div class="container-global">
+
+    <nav class="navbar">
+        <h4 class="title-H4">&nbsp;</h4>
+        <div class="profile">
+            <svg id="Groupe_21" style="    width: 1rem;" data-name="Groupe 21" xmlns="http://www.w3.org/2000/svg" width="23.262" height="25.998" viewBox="0 0 23.262 25.998">
+          <path id="Tracé_172" data-name="Tracé 172" d="M1288.078,83.936a7.471,7.471,0,0,0-14.942,0c0,8.716-3.736,11.206-3.736,11.206h22.413S1288.078,92.652,1288.078,83.936Z" transform="translate(-1269.4 -74.879)" fill="black"/>
+          <path id="Tracé_173" data-name="Tracé 173" d="M1284.25,95.465a4.182,4.182,0,0,1-1.6,1.6,4.354,4.354,0,0,1-4.359,0,4.391,4.391,0,0,1-1.621-1.6" transform="translate(-1269.253 -71.65)" fill="black"/>
+          <circle id="Ellipse_6" data-name="Ellipse 6" cx="4.946" cy="4.946" r="4.946" transform="translate(13.371)" fill="#dc181a"/>
+        </svg>
+
+            <p style="text-transform: capitalize;" class="profile-name">{{userConnecter?.name}} {{userConnecter?.prenom}}</p>
+            <img nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" src="assets/menu1/images/user.png" class="nav-avatar profile-image" />
+
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item style="color: red;font-weight: 600;">Se déconnecter <i nz-icon nzType="cloud-download" nzTheme="outline" style="margin-left: 0.3rem; color: black;"></i></li>
+                </ul>
+            </nz-dropdown-menu>
+        </div>
+    </nav>
+
+    <input type="checkbox" id="toggle">
+    <label class="side-toggle" for="toggle">
+  <svg id="Groupe_761" style="width: 25px;" data-name="Groupe 761" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+    <circle id="Ellipse_24" data-name="Ellipse 24" cx="18" cy="18" r="18" fill="none"/>
+    <g id="menu-right-alt" transform="translate(6.189 7.804)">
+      <path id="Tracé_203" data-name="Tracé 203" d="M29.367,8.96a1.46,1.46,0,0,0-1.46-1.46H7.46a1.46,1.46,0,1,0,0,2.921H27.906A1.46,1.46,0,0,0,29.367,8.96Z" transform="translate(-6 -7.5)" fill="orange"/>
+      <path id="Tracé_204" data-name="Tracé 204" d="M29.367,26.96a1.46,1.46,0,0,0-1.46-1.46H7.46a1.46,1.46,0,1,0,0,2.921H27.906A1.46,1.46,0,0,0,29.367,26.96Z" transform="translate(-6 -7.975)" fill="orange"/>
+      <path id="Tracé_205" data-name="Tracé 205" d="M28.144,16.5a1.46,1.46,0,1,1,0,2.921H16.46a1.46,1.46,0,1,1,0-2.921Z" transform="translate(-15 -7.738)" fill="orange"/>
+    </g>
+  </svg>
+  </label>
+
+    <div class="sidebar">
+        <img src="../../assets/images/images.jpg" alt="" id="Groupe_688">
+        <p class="p-tilte">RECONCILIATION</p>
+        <div class="content-sidebar">
+            <a class="link-active" routerLinkActive="sidebar__link" [routerLinkActiveOptions]="  {exact: true}" routerLink="tableau-de-bord" style="text-decoration: none;">
+                <div class="sidebar-menu">
+                    <div class="menu-side-link">
+                        <svg id="dashboard-line" xmlns="http://www.w3.org/2000/svg" width="27.261" height="22.705" viewBox="0 0 27.261 22.705">
+                      <path id="Tracé_191" data-name="Tracé 191" d="M23.4,12.32l-4.879,4.8a2.477,2.477,0,1,0,1.164,1.172l4.888-4.8Z" transform="translate(-3.841 -5.657)" />
+                      <path id="Tracé_192" data-name="Tracé 192" d="M15.121,4.25a13.615,13.615,0,0,0-10.4,22.416l.248.289h20.31l.248-.289A13.615,13.615,0,0,0,15.121,4.25ZM24.484,25.3H5.759a11.914,11.914,0,0,1-2.568-6.473H6.039V17.179H3.191a11.9,11.9,0,0,1,2.848-7.117l2.023,2.023,1.164-1.164L7.22,8.89A11.9,11.9,0,0,1,14.3,5.934v2.89h1.651V5.943A11.947,11.947,0,0,1,27.01,17.179H24.137v1.651h2.914A11.914,11.914,0,0,1,24.484,25.3Z" transform="translate(-1.491 -4.25)" />
+                    </svg>
+                        <p style="font-weight: 700;font-size: 1.1rem;">Repporting</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- <a class="link-active" routerLinkActive=" sidebar__link" [routerLinkActiveOptions]="{exact: true}" routerLink="edition" style="text-decoration: none;">
+                <div class="sidebar-menu">
+                    <div class="menu-side-link">
+                        <i class="fas fa-user-edit" aria-hidden="true"></i>
+                        <p style="font-weight: 700;">Editer </p>
+                    </div>
+                </div>
+            </a> -->
+
+            <!-- <a class="link-active" routerLinkActive=" sidebar__link" [routerLinkActiveOptions]="{exact: true}" routerLink="gestion-bqt" style="text-decoration: none;">
+                <div class="sidebar-menu">
+                    <div class="menu-side-link">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                        <p>BQT</p>
+                    </div>
+                </div>
+            </a> -->
+
+            <!-- <a class="link-active" style="text-decoration: none;" routerLinkActive="sidebar__link" [routerLinkActiveOptions]="{exact: true}">
+                             <a style="text-decoration: none;">PLANS D'ACTIONS</a>
+                                <ul class="ul-hover">
+                                    <li><a routerLink="plan-action-rai" style="color: black;">Plan d'action RAI</a></li>
+                                    <li><a routerLink="plan-action-bqt" style="color: black;">Plan d'action BQT</a></li>
+                                </ul>
+                    <div class="sidebar-menu">
+                    <div class="menu-side-link" style="overflow-x: hidden;">
+
+                        <ul id="menu-accordeon">
+                            <i style="margin-top: 0.3rem;" class="fa fa-archive" aria-hidden="true"></i>
+                            <li>
+                           </li>
+                        </ul>
+                    </div>
+                </div>
+            </a> -->
+
+            <a class="link-active" style="text-decoration: none;" routerLinkActive="sidebar__link" [routerLinkActiveOptions]="{exact: true}">
+
+                <div class="sidebar-menu ">
+                    <div class="menu-side-link " style="overflow-x: hidden;  ">
+
+                        <ul id="menu-accordeon" style="display: flex;
+                        gap: 11px;
+                        text-decoration: none;
+                        list-style: none;
+                        padding-left: 0px;
+                       ">
+                            <i class="fa fa-cog " aria-hidden="true " style=" margin-top: 0rem; "></i>
+                            <li>
+                                <a style="text-decoration: none; ">PAREMÈTRAGE</a>
+                                <ul class="ul-hover ">
+                                    <li>
+                                        <a style="color: black;text-align: left;margin-left: 0.7rem; text-decoration: none;" routerLink="utilisateur"> Utilisateur</a>
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </li>
+                                    <li>
+                                        <a style="color: black;text-align: left;margin-left: 0.7rem; text-decoration: none;" routerLink="filiale">Filiale</a>
+                                        <i class="fa fa-industry" aria-hidden="true"></i>
+                                    </li>
+                                    <!-- <li>
+                                        <a style="color: black;text-align: left;margin-left: 0.7rem; text-decoration: none;" routerLink="facture">Facture</a>
+                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                    </li> -->
+                                    <li>
+                                        <a style="color: black;text-align: left;margin-left: 0.7rem; text-decoration: none;" routerLink="taxe">Taxe</a>
+                                        <i class="fa fa-eur" aria-hidden="true"></i>
+                                    </li>
+                                    <li>
+                                        <a style="color: black;text-align: left;margin-left: 0.7rem; text-decoration: none;" routerLink="devise">Devise</a>
+                                        <i class="fa fa-percent" aria-hidden="true"></i>
+                                    </li>
+                                    <li>
+                                        <a style="color: black;text-align: left;margin-left: 0.7rem; text-decoration: none;" routerLink="langue">Langue</a>
+                                        <i class="fa fa-volume-up" aria-hidden="true"></i>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </a>
+        </div>
+
+        <div class="foote-sidebar ">
+
+            <a class="link-active-bottom " style="text-decoration:none;cursor: pointer;outline: none; " (click)="logout()">
+                <div class="sidebar-menu-bottom ">
+                    <div class="menu-side-link-bottom ">
+                        <svg xmlns="http://www.w3.org/2000/svg " width="23.016 " height="19.556 " viewBox="0 0 23.016 19.556 ">
+                <g id="log-out-outline " transform="translate(-3.375 -5.625) ">
+                  <path id="Tracé_313 " data-name="Tracé 313 " d="M17.479,19.729v2.163a2.163,2.163,0,0,1-2.163,2.163H6.663A2.163,2.163,0,0,1,4.5,21.892V8.913A2.163,2.163,0,0,1,6.663,6.75h8.22c1.194,0,2.6.968,2.6,2.163v2.163 " fill="none " stroke="#dc181a
+                " stroke-linecap="round " stroke-linejoin="round " stroke-width="2.25 "/>
+                  <path id="Tracé_314 " data-name="Tracé 314 " d="M25.875,21.027,30.2,16.7l-4.326-4.326 " transform="translate(-4.935 -1.299) " fill="none " stroke="#dc181a " stroke-linecap="round " stroke-linejoin="round " stroke-width="2.25 "/>
+                  <path id="Tracé_315 " data-name="Tracé 315 " d="M12.375,18H26.219 " transform="translate(-1.818 -2.598) " fill="none " stroke="#dc181a " stroke-linecap="round " stroke-linejoin="round " stroke-width="2.25 "/>
+                </g>
+              </svg>
+                        <p class="deConnecter ">Se déconnecter</p>
+                    </div>
+                </div>
+            </a>
+            <div class="container copy " style="color: white;">
+                <b class="copyright " style="color: white;">&copy; 2022 RECONCILIATION - GOS </b>All rights reserved.
+            </div>
+
+        </div>
+    </div>
+
+
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+
+</div>
+>
