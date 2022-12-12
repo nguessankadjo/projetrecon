@@ -129,132 +129,267 @@
     </ng-template>
 </nz-modal>
 <!--  -->
-<!--  -->
+<!--hidden="true"  -->
 
-<div id="edition-facture" class="centent-edit" style="    display: flex;
+<div hidden="true" id="edition-facture">
+
+    <div *ngIf="OnFacture.factureCMS" class="centent-edit" style="
+    margin-bottom: 20rem;
+    display: flex;
 flex-direction: column;
-gap: 15px;" hidden="true">
-    <div class="header" style="display: flex;
+gap: 15px;">
+        <div class="header" style="display: flex;
     flex-direction: row;
     justify-content: space-around;margin-bottom: 32px;">
-        <div style="    width: 100%;    display: flex;
+            <div style="    width: 100%;    display: flex;
         align-items: start;
         gap: 13px;">
-            <img src="../../../../assets/images/orange.jpg" style="    width: 50px;
+                <img src="../../../../assets/images/orange.jpg" style="    width: 50px;
             " alt="">
-            <p style="    font-size: 15px;white-space: nowrap;
+                <p style="    font-size: 15px;white-space: nowrap;
             font-weight: 600;">Groupement Orange Services</p>
-        </div>
-        <p style="    width: 100%;    align-items: end;
+            </div>
+            <p style="    width: 100%;    align-items: end;
         display: flex;
         font-size: 20px;    white-space: nowrap;    margin-left: -56px;
-    margin-right: 64px;">STATS {{OnFacture.msg}} SERVICES</p>
-        <div style="    width: 100%;    display: flex;
+    margin-right: 64px;">{{OnFacture.factureCMS.typeFact}} SERVICES</p>
+            <div style="    width: 100%;    display: flex;
         flex-direction: column;gap:10px">
-            <div style="    display: flex;
+                <div style="    display: flex;
             justify-content: space-between; font-size: 12px;">
-                <span>ID:</span>
-                <span style="font-size: 9px;">{{OnFacture.identifiant}}</span>
-            </div>
-            <div style="    display: flex;font-size: 12px;
+                    <span>ID:</span>
+                    <span style="font-size: 9px;">{{OnFacture.factureCMS.identifiant}}</span>
+                </div>
+                <div style="    display: flex;font-size: 12px;
             justify-content: space-between;">
-                <span>Date of issue:</span>
-                <span>{{OnFacture.date}}</span>
-            </div>
-            <div style="    display: flex;font-size: 12px;
+                    <span>Date of issue:</span>
+                    <span>{{OnFacture.date}}</span>
+                </div>
+                <div style="    display: flex;font-size: 12px;
             justify-content: space-between;    background: orange;">
-                <span>Period::</span>
-                <span>{{OnFacture.periode}}</span>
-            </div>
-            <div style="    display: flex;font-size: 12px;
+                    <span>Period::</span>
+                    <span>{{OnFacture.factureCMS.periode}}</span>
+                </div>
+                <div style="    display: flex;font-size: 12px;
             justify-content: space-between;">
-                <span>Currency:</span>
-                <span>{{OnFacture.devise}}</span>
-            </div>
-            <div style="    display: flex;font-size: 12px;
+                    <span>Currency:</span>
+                    <span>{{OnFacture.factureCMS.devise}}</span>
+                </div>
+                <div style="    display: flex;font-size: 12px;
             justify-content: space-between;">
-                <span>1 BWspan:</span>
-                <span>{{OnFacture.euro}} Euro</span>
+                    <span>1 BW:</span>
+                    <span>{{OnFacture.factureCMS.euro}} Euro</span>
+                </div>
             </div>
         </div>
-    </div>
-    <div>
-        <p>Affiliate: ORANGE {{OnFacture.filiale}}</p>
-    </div>
+        <div>
+            <p>Affiliate: ORANGE {{OnFacture.factureCMS.filiale}}</p>
+        </div>
 
-    <div style="margin-bottom: 64px;
+        <div style="margin-bottom: 64px;
     font-size: 14px;">
-        <table cellspacing="0" style="    width: 100%;">
-            <tr>
-                <td>&nbsp;</td>
-                <td style="font-size: 12px; white-space: nowrap;">Amount excl tax</td>
-                <td style="font-size: 12px; white-space: nowrap;">Tax (%)</td>
-                <td style="font-size: 12px; white-space: nowrap;">Amount incl Tax</td>
-                <td style="font-size: 12px; white-space: nowrap;">Amount in Euro Excl Tax</td>
-            </tr>
-            <tr style="background: gray;">
-                <td style="    font-size: 12px;
+            <table cellspacing="0" style="    width: 100%;">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Amount excl tax</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Tax (%)</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Amount incl Tax</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Amount in Euro Excl Tax</td>
+                </tr>
+                <tr style="background: gray;">
+                    <td style="    font-size: 12px;
             font-weight: 600;font-size: 12px; white-space: nowrap;">Revenu collecté</td>
-                <td style="font-size: 12px; white-space: nowrap;"></td>
-                <td style="font-size: 12px; white-space: nowrap;"></td>
-                <td style="font-size: 12px; white-space: nowrap;"></td>
-                <td style="font-size: 12px; white-space: nowrap;"></td>
-            </tr>
-            <tr *ngFor="let item of OnFacture.Rcollecter">
-                <td style="    font-size: 12px;
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                </tr>
+                <tr *ngFor="let item of OnFacture.factureCMS.Rcollecter">
+                    <td style="    font-size: 12px;
             font-weight: 600;font-size: 12px; white-space: nowrap;">{{item.lib}}</td>
-                <td style="font-size: 12px; white-space: nowrap;">{{item.montant}}</td>
-                <td style="font-size: 12px; white-space: nowrap;">{{item.taxe}}</td>
-                <td style="font-size: 12px; white-space: nowrap;">{{item.montantTTC}}</td>
-                <td style="font-size: 12px; white-space: nowrap;">{{item.euroTTC}}</td>
-            </tr>
-        </table>
-    </div>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.montantTTC}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.taxe}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.montantHT}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.euroTTC}}</td>
+                </tr>
+            </table>
+        </div>
 
-    <div style="margin-bottom: 64px;">
-        <table cellspacing="0" style="    width: 100%;">
-            <tr>
-                <td>&nbsp;</td>
-                <td style="    font-size: 12px;font-size: 12px; white-space: nowrap;">CA à partager HT</td>
-                <td style="font-size: 12px; white-space: nowrap;">Pourcentage revenu share (%)</td>
-                <td style="font-size: 12px; white-space: nowrap;">Montant HT</td>
-                <td style="font-size: 12px; white-space: nowrap;">Montant HT en Euro</td>
-            </tr>
-            <tr style="background: gray;">
-                <td style="    font-size: 12px;
+        <div style="margin-bottom: 64px;">
+            <table cellspacing="0" style="    width: 100%;">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td style="    font-size: 12px;font-size: 12px; white-space: nowrap;">CA à partager HT</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Pourcentage revenu share (%)</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Montant HT</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Montant HT en Euro</td>
+                </tr>
+                <tr style="background: gray;">
+                    <td style="    font-size: 12px;
               font-weight: 600;font-size: 12px; white-space: nowrap;">Revenu à partager</td>
-                <td style="font-size: 12px; white-space: nowrap;"></td>
-                <td style="font-size: 12px; white-space: nowrap;"></td>
-                <td style="font-size: 12px; white-space: nowrap;"></td>
-                <td style="font-size: 12px; white-space: nowrap;"></td>
-            </tr>
-            <tr *ngFor="let item of OnFacture.RPartager">
-                <td style="    font-size: 12px;
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                </tr>
+                <tr *ngFor="let item of OnFacture.factureCMS.RPartager">
+                    <td style="    font-size: 12px;
               font-weight: 600;font-size: 12px; white-space: nowrap;">{{item.lib}}</td>
-                <td style="font-size: 12px; white-space: nowrap;">{{item.part}}</td>
-                <td style="font-size: 12px; white-space: nowrap;">{{item.montant}}</td>
-                <td style="font-size: 12px; white-space: nowrap;">{{item.montantHT}}</td>
-                <td style="font-size: 12px; white-space: nowrap;">{{item.euroTTC}}</td>
-            </tr>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.CAPartager}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.part}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.montantHT}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.euroHT}}</td>
+                </tr>
 
-        </table>
+            </table>
+        </div>
+
+        <div style="margin-bottom: 64px;">
+            <table style=" border-collapse: collapse;width: 100%;">
+                <tr>
+                    <th style="text-align: center; border: 2px solid black;padding: 10px;">Signature GOS</th>
+                    <th style="text-align: center; border: 2px solid black;padding: 10px;">Signature Affiliate</th>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid black;padding: 10px;">Nom et Prénoms:</td>
+                    <td style="border: 2px solid black;padding: 10px;">Nom et Prénoms:</td>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid black;padding: 2rem;">Date et signature:</td>
+                    <td style="border: 2px solid black;padding: 2rem;">Date et signature:</td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 
-    <div style="margin-bottom: 64px;">
-        <table style=" border-collapse: collapse;width: 100%;">
-            <tr>
-                <th style="text-align: center; border: 2px solid black;padding: 10px;">Signature GOS</th>
-                <th style="text-align: center; border: 2px solid black;padding: 10px;">Signature Affiliate</th>
-            </tr>
-            <tr>
-                <td style="border: 2px solid black;padding: 10px;">Nom et Prénoms:</td>
-                <td style="border: 2px solid black;padding: 10px;">Nom et Prénoms:</td>
-            </tr>
-            <tr>
-                <td style="border: 2px solid black;padding: 2rem;">Date et signature:</td>
-                <td style="border: 2px solid black;padding: 2rem;">Date et signature:</td>
-            </tr>
-        </table>
+    <div *ngIf="OnFacture.factureMIGRES" class="centent-edit" style="    display: flex;
+flex-direction: column;
+gap: 15px;">
+        <div class="header" style="display: flex;
+    flex-direction: row;
+    justify-content: space-around;margin-bottom: 32px;">
+            <div style="    width: 100%;    display: flex;
+        align-items: start;
+        gap: 13px;">
+                <img src="../../../../assets/images/orange.jpg" style="    width: 50px;
+            " alt="">
+                <p style="    font-size: 15px;white-space: nowrap;
+            font-weight: 600;">Groupement Orange Services</p>
+            </div>
+            <p style="    width: 100%;    align-items: end;
+        display: flex;
+        font-size: 20px;    white-space: nowrap;    margin-left: -56px;
+    margin-right: 64px;">{{OnFacture.factureMIGRES.typeFact}} SERVICES</p>
+            <div style="    width: 100%;    display: flex;
+        flex-direction: column;gap:10px">
+                <div style="    display: flex;
+            justify-content: space-between; font-size: 12px;">
+                    <span>ID:</span>
+                    <span style="font-size: 9px;">{{OnFacture.factureMIGRES.identifiant}}</span>
+                </div>
+                <div style="    display: flex;font-size: 12px;
+            justify-content: space-between;">
+                    <span>Date of issue:</span>
+                    <span>{{OnFacture.date}}</span>
+                </div>
+                <div style="    display: flex;font-size: 12px;
+            justify-content: space-between;    background: orange;">
+                    <span>Period::</span>
+                    <span>{{OnFacture.factureMIGRES.periode}}</span>
+                </div>
+                <div style="    display: flex;font-size: 12px;
+            justify-content: space-between;">
+                    <span>Currency:</span>
+                    <span>{{OnFacture.factureMIGRES.devise}}</span>
+                </div>
+                <div style="    display: flex;font-size: 12px;
+            justify-content: space-between;">
+                    <span>1 BWspan:</span>
+                    <span>{{OnFacture.factureMIGRES.euro}} Euro</span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>Affiliate: ORANGE {{OnFacture.factureMIGRES.filiale}}</p>
+        </div>
+
+        <div style="margin-bottom: 64px;
+    font-size: 14px;">
+            <table cellspacing="0" style="    width: 100%;">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Amount excl tax</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Tax (%)</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Amount incl Tax</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Amount in Euro Excl Tax</td>
+                </tr>
+                <tr style="background: gray;">
+                    <td style="    font-size: 12px;
+            font-weight: 600;font-size: 12px; white-space: nowrap;">Revenu collecté</td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                </tr>
+                <tr *ngFor="let item of OnFacture.factureMIGRES.Rcollecter">
+                    <td style="    font-size: 12px;
+            font-weight: 600;font-size: 12px; white-space: nowrap;">{{item.lib}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.montantTTC}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.taxe}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.montantHT}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.euroTTC}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-bottom: 64px;">
+            <table cellspacing="0" style="    width: 100%;">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td style="    font-size: 12px;font-size: 12px; white-space: nowrap;">CA à partager HT</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Pourcentage revenu share (%)</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Montant HT</td>
+                    <td style="font-size: 12px; white-space: nowrap;">Montant HT en Euro</td>
+                </tr>
+                <tr style="background: gray;">
+                    <td style="    font-size: 12px;
+              font-weight: 600;font-size: 12px; white-space: nowrap;">Revenu à partager</td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                    <td style="font-size: 12px; white-space: nowrap;"></td>
+                </tr>
+                <tr *ngFor="let item of OnFacture.factureMIGRES.RPartager">
+                    <td style="    font-size: 12px;
+              font-weight: 600;font-size: 12px; white-space: nowrap;">{{item.lib}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.montant}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.part}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.montantHT}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.euroHT}}</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div style="margin-bottom: 64px;">
+            <table style=" border-collapse: collapse;width: 100%;">
+                <tr>
+                    <th style="text-align: center; border: 2px solid black;padding: 10px;">Signature GOS</th>
+                    <th style="text-align: center; border: 2px solid black;padding: 10px;">Signature Affiliate</th>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid black;padding: 10px;">Nom et Prénoms:</td>
+                    <td style="border: 2px solid black;padding: 10px;">Nom et Prénoms:</td>
+                </tr>
+                <tr>
+                    <td style="border: 2px solid black;padding: 2rem;">Date et signature:</td>
+                    <td style="border: 2px solid black;padding: 2rem;">Date et signature:</td>
+                </tr>
+            </table>
+        </div>
+
     </div>
+
 
 </div>
