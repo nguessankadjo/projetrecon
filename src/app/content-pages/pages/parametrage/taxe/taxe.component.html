@@ -36,7 +36,7 @@
                     <td></td>
                     <td>{{ data.libTaxe }}</td>
                     <td>{{ data.value }}</td>
-                    <td>{{ data.idFiliale }}</td>
+                    <td>{{ data.filiale.libFiliale }}</td>
                     <td style="display: flex;gap: 1rem;">
                         <button (click)="showModalRegister(data)" style="    background: #ff7900;
                     border: none;
@@ -74,8 +74,8 @@
 
                     <nz-form-item style="margin: 0 0 1px;">
                         <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired nzFor="nom">Libellé Taxe</nz-form-label>
-                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer le libellé de la filiale">
-                            <input nz-input formControlName="libFiliale" id="libFiliale" style="width:100% ;  border: 2px solid gray;
+                        <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Entrer le libellé de la taxe">
+                            <input nz-input formControlName="libTaxe" id="libTaxe" style="width:100% ;  border: 2px solid gray;
                     " />
                         </nz-form-control>
                     </nz-form-item>
@@ -95,7 +95,7 @@
                     <nz-form-item>
                         <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired nzFor="idRole">Filiale associée</nz-form-label>
                         <nz-select style="border: 2px solid gray;
-                " nzShowSearch nzAllowClear nzPlaceHolder="Select un filiale" nzErrorTip="Selectionner une filiale svp" formControlName="idFiliale">
+                " nzShowSearch nzAllowClear nzPlaceHolder="Select une filiale" nzErrorTip="Selectionner une filiale svp" formControlName="idFiliale">
                             <nz-option *ngFor="let item of ListFiliale" nzCustomContent [nzLabel]="item.libFiliale" [nzValue]="item.idFiliale">
                                 {{item.libFiliale}}
                             </nz-option>

@@ -79,6 +79,7 @@ export class FilialeComponent implements OnInit {
     this.titleModif = "Création d'une filiale";
     this.titleBtn = "Sauvegarder";
       console.log('validateFormRegister',this.validateFormRegister.value);
+      // return
     if (filiale) {
       this.shobtn = true;
       this.titleModif = "Modification d'une filiale";
@@ -177,28 +178,27 @@ handleOkRegiter(): void {
   submitFormFiliale(): void {
     let endPoint = "filiale/add"
     console.log('this.validateFormRegister.value', this.validateFormRegister.value);
-
     if (this.validateFormRegister.valid) {
-      this.isConfirmLoading = true;
+      this.isOkLoading = true;
       this.ServiceApiService.post(endPoint,this.validateFormRegister.value).subscribe(
         (response:any) => {
           console.log('filiale bien enregistrer', response.status);
           if(response.statusCode === 200){
             this.showSuccess(response.message);
             this.isVisible = false;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
             this.validateFormRegister.reset()
             this.getAllFiliale();
           }else if(response.statusCode === 400 ){
             this.showDanger(response.message);
             this.isVisible = true;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
           }
         },
         (error:any) => {
           this.showDanger(error.message);
           this.isVisible = true;
-          this.isConfirmLoading = false
+          this.isOkLoading = false
           console.log('error',error);
         }
       );
@@ -216,26 +216,26 @@ handleOkRegiter(): void {
   UpdateFiliale(){
     const endPoint = "filiale";
     if (this.validateFormRegister.valid) {
-      this.isConfirmLoading = true;
+      this.isOkLoading = true;
       this.ServiceApiService.put(endPoint,this.filialeId,this.validateFormRegister.value).subscribe(
         (response:any) => {
           console.log('filiale bien modifier', response);
           if(response.statusCode == 200){
             this.showSuccess(response.message);
             this.isVisible = false;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
             this.validateFormRegister.reset()
             this.getAllFiliale();
           }else if(response.statusCode == 400 ){
             this.showDanger(response.message);
             this.isVisible = true;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
           }
         },
         (error:any) => {
           this.showDanger(error.message);
           this.isVisible = true;
-          this.isConfirmLoading = false
+          this.isOkLoading = false
           console.log('error',error);
         }
       );

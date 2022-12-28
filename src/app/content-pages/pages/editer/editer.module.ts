@@ -11,6 +11,10 @@ import * as AllIcons from '@ant-design/icons-angular/icons';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 // import { RouterModule } from '@angular/router';
 // import { CommonModule } from '@angular/common';
+// import { ChartModule } from 'angular-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
+
+// import { ChartModule } from 'angular-highcharts';
 
 const routes: Routes = [
   { path: '',
@@ -26,6 +30,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
 
 @NgModule({
   imports: [
+    HighchartsChartModule,
+    // ChartModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,

@@ -49,7 +49,7 @@ export class TaxeComponent implements OnInit {
     this.getAllTaxe();
 
     this.validateFormRegister = this.fb.group({
-      libFiliale: [null, [Validators.required]],
+      libTaxe: [null, [Validators.required]],
       value: [null, [Validators.required]],
       idFiliale: [null, [Validators.required]],
     });
@@ -86,7 +86,7 @@ export class TaxeComponent implements OnInit {
       this.taxeId = taxe.idTaxe;
       console.log('taxe====>',taxe);
       this.validateFormRegister.patchValue( { ...taxe }),
-      this.validateFormRegister.controls['idDevise'].setValue(taxe.filiale.idFiliale);
+      this.validateFormRegister.controls['idFiliale'].setValue(taxe.filiale.idFiliale);
     }
   }
 
@@ -139,7 +139,7 @@ handleOkRegiter(): void {
           console.log('utilisateur bien supprimé', response);
           if(response.statusCode == 200){
             this.showSuccess(response.message);
-            this.getAllFiliale();
+            this.getAllTaxe();
           }else if(response.statusCode == 400 ){
             this.showDanger(response.message);
           }
@@ -165,32 +165,36 @@ handleOkRegiter(): void {
     let value = {
       ...this.validateFormRegister.value
     }
+    console.log('value', value);
+
 
     if (this.validateFormRegister.valid) {
-      this.isConfirmLoading = true;
+      this.isOkLoading = true;
       this.ServiceApiService.post(endPoint,value).subscribe(
         (response:any) => {
-          console.log('taxe bien enregistrer', response.status);
           if(response.statusCode === 200){
+          console.log('taxe bien enregistrer', response.statusCode);
             this.showSuccess(response.message);
             this.isVisible = false;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
             this.validateFormRegister.reset()
-            this.getAllFiliale();
+            this.getAllTaxe();
           }else if(response.statusCode === 400 ){
+          console.log('taxe bien enregistrer', response.statusCode);
             this.showDanger(response.message);
             this.isVisible = true;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
           }else if(response.statusCode === 201 ){
+          console.log('taxe bien enregistrer', response.statusCode);
             this.showDanger(response.message);
             this.isVisible = true;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
           }
         },
         (error:any) => {
           this.showDanger(error.message);
           this.isVisible = true;
-          this.isConfirmLoading = false
+          this.isOkLoading = false
           console.log('error',error);
         }
       );
@@ -206,32 +210,32 @@ handleOkRegiter(): void {
 
 
   UpdateTaxe(){
-    const endPoint = "filiale";
+    const endPoint = "taxe";
     if (this.validateFormRegister.valid) {
-      this.isConfirmLoading = true;
+      this.isOkLoading = true;
       this.ServiceApiService.put(endPoint,this.taxeId,this.validateFormRegister.value).subscribe(
         (response:any) => {
           console.log('filiale bien modifier', response);
           if(response.statusCode == 200){
             this.showSuccess(response.message);
             this.isVisible = false;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
             this.validateFormRegister.reset()
-            this.getAllFiliale();
+            this.getAllTaxe();
           }else if(response.statusCode == 400 ){
             this.showDanger(response.message);
             this.isVisible = true;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
           }else if(response.statusCode == 201 ){
             this.showDanger(response.message);
             this.isVisible = true;
-            this.isConfirmLoading = false
+            this.isOkLoading = false
           }
         },
         (error:any) => {
           this.showDanger(error.message);
           this.isVisible = true;
-          this.isConfirmLoading = false
+          this.isOkLoading = false
           console.log('error',error.message);
         }
       );

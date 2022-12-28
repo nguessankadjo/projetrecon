@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +31,7 @@ import { UtilisateurModule } from './content-pages/pages/parametrage/utilisateur
 import { TaxeModule } from './content-pages/pages/parametrage/taxe/taxe.module';
 import { FactureModule } from './content-pages/pages/parametrage/facture/facture.module';
 import { LangueModule } from './content-pages/pages/parametrage/langue/langue.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -44,6 +45,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AppComponent,
       ContentPagesComponent,
    ],
+   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     // NgxSpinnerModule,
     ToastrModule.forRoot(),
@@ -58,6 +60,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     SingInModule,
     DemoNgZorroAntdModule
   ],

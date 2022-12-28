@@ -31,11 +31,11 @@ const routes: Routes = [
       },
       {
         path: 'tableau-de-bord',
-        loadChildren: () => import('./teste/teste.module').then(module => module.TesteModule),
+        loadChildren: () => import('./content-pages/pages/editer/editer.module').then(module => module.EditerModule),
       },
       {
         path: 'edition',
-        loadChildren: () => import('./content-pages/pages/editer/editer.module').then(module => module.EditerModule),
+        loadChildren: () => import('./teste/teste.module').then(module => module.TesteModule),
       },
       {
         path: 'utilisateur',

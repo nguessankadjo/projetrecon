@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+// import { Chart } from 'angular-highcharts';
+
+import {Chart} from 'chart.js'
+
+
 import { ServiceApiService } from '../../../services/service-api.service';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -10,6 +16,15 @@ import { Router } from '@angular/router';
 import Swal from "sweetalert2";
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
+// import * as Highcharts from 'highcharts';
+// import { Chart } from 'angular-highcharts';
+// import { Options } from 'highcharts';
+
+import * as Highcharts from 'highcharts';
+
+
+import { donutChartOptions } from './helpers/donutChartOptions';
+
 import {
   FormArray,
   FormBuilder,
@@ -18,122 +33,86 @@ import {
   Validators,
   FormControlName,
 } from '@angular/forms';
-
+import { SpinnerService } from 'src/app/services/Spinner.service';
+// var randomColor = require("randomcolor");
 @Component({
   selector: 'app-editer',
   templateUrl: './editer.component.html',
   styleUrls: ['./editer.component.scss']
 })
-export class EditerComponent implements OnInit {
+export class EditerComponent implements OnInit , AfterViewInit {
 
   userConnect:any = {};
-  ListUser:any = [];
-  ListRole:any = [];
+  statistic:any=[]
+  staticEtat:any=[];
+  staticHistori:any = [];
 
-  shobtn:boolean = false;
+  checked = false;
+  indeterminate = false;
+  listOfCurrentPageData: any = [];
+  listOfData:any =  [];
+  setOfCheckedId = new Set<any>();
+  expandSet = new Set<any>();
 
-  titleBtn:any = "";
-  titleModif:any
-  ConfirmPassword:any;
-  isVisibler:boolean =false;
-  isVisibleLock:boolean =false;
+  constructor(private SpinnerService:SpinnerService,private router: Router, private ServiceApiService:ServiceApiService) { }
 
-  userId:any=null
-
-  isOkLoading = false;
-
-  isVisible = false;
-  isVisibleRegister =  false
-  isConfirmLoading = false;
-
-  // validateForm!: FormGroup;
-  validateFormRegister!: FormGroup;
-
-  constructor(private msg: NzMessageService,private fb: FormBuilder,private router: Router,private toastr: ToastrService,private ServiceApiService:ServiceApiService , private ToastService:ToastService) { }
 
   ngOnInit() {
-    this.getAllRole();
-    this.getAllUser();
+    this.getAllstatistic();
+    this.getAllstaticStatus();
+    this.getAllstatichistorique()
 
-    this.validateFormRegister = this.fb.group({
-      login: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      nom: [null, [Validators.required]],
-      prenom: [null, [Validators.required]],
-      email: [null, [Validators.email ,Validators.required]],
-      contact: [null, [Validators.required]],
-      idRole:[null,[Validators.required]]
-    });
-  }
-
-
-
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
-    if (!control.value) {
-      return { required: true };
-    } else if (control.value !== this.validateFormRegister.controls.password.value) {
-      return { confirm: true, error: true };
-    }
-    return {};
-  };
-
-  showSuccess(msg:any) {
-    this.toastr.success(msg);
-  }
-
-  showDanger(msg:any){
-    this.toastr.error(msg);
-  }
-
-  showModalRegister(user?:any): void {
-    this.isVisible = true;
-    this.titleModif = "Création d'un compte utilisateur";
-    this.titleBtn = "Sauvegarder";
-    if (user) {
-      this.shobtn = true;
-      this.titleModif = "Modification d'un compte utilisateur";
-      this.titleBtn = "Modifier";
-      this.userId = user.id
-      console.log('user====>',user);
-      this.validateFormRegister.patchValue( { ...user }),
-      this.validateFormRegister.controls['idRole'].setValue(user.role.idRole),
-      console.log('validateFormRegister',this.validateFormRegister.value);
-      console.log('validateFormRegister=====',this.validateFormRegister.controls['password'].value);
-
-    }
-  }
-
-
-  handleOkRegiter(): void {
-if (this.userId) {
-
-  this.confirmSubmitUpdateUser()
-}else{
-
-  this.confirmSubmitCreateUser();
-}
+    const data = [
+      { year: 2010, count: 10 },
+      { year: 2011, count: 20 },
+      { year: 2012, count: 15 },
+      { year: 2013, count: 25 },
+      { year: 2014, count: 22 },
+      { year: 2015, count: 30 },
+      { year: 2016, count: 28 },
+    ];
+    // console.log('oooook----', this.statistic);
 
 
   }
 
-  handleCancel(): void {
-    this.isVisible = false;
-    this.validateFormRegister.reset()
+  graphSTat(data:any){
+      // this.getAllstatistic()
+      console.log('oooook===>', data);
+      new Chart(
+        'acquisitions',
+        {
+          type: 'pie',
+          data: {
+            labels: data.map((it:any) => it.lib),
+            datasets: [{
+              label: 'My First Dataset',
+              data: data.map((it:any) => it.montant),
+              backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(255, 205, 86)'
+              ],
+              // hoverOffset: 4
+            }]
+          },
+        }
+      );
   }
 
 
-  // showModal1sRegister(bqt?:any): void {
-  //   this.isVisibler = true;
-  //   this.titleModif = "Création d'un compte utilisateur";
-  // }
+  getAllstatistic(){
+    let endPoint = "dashboard"
+    this.SpinnerService.showSpinner();
 
-  getAllUser(){
-    let endPoint = "user"
     this.ServiceApiService.get(endPoint).subscribe(
       (response:any) => {
-        this.ListUser = response;
-        console.log('ListUser', this.ListUser);
+        this.statistic = response.msg;
+        console.log('statistic+++', this.statistic);
+        this.graphSTat(this.statistic)
+    this.SpinnerService.hideSpinner();
+
       },
       (error:any) => {
         console.log('error',error);
@@ -141,12 +120,15 @@ if (this.userId) {
     );
   }
 
-  getAllRole(){
-    let endPoint = "role"
+  getAllstaticStatus(){
+    let endPoint = "dashboard/statByEtat"
+
     this.ServiceApiService.get(endPoint).subscribe(
       (response:any) => {
-        this.ListRole = response;
-        console.log('ListRole', this.ListRole, response.status);
+        this.staticEtat = response;
+        console.log('staticEtat+++', this.staticEtat);
+        // this.graphSTat(this.statistic)
+
       },
       (error:any) => {
         console.log('error',error);
@@ -154,176 +136,70 @@ if (this.userId) {
     );
   }
 
+  getAllstatichistorique(){
+    let endPoint = "dashboard/history"
 
-  DeleteRegistration(user?:any){
-    const endPoint = "user";
-    if (user) {
-      this.ServiceApiService.delete(endPoint,user.id).subscribe(
-        (response:any) => {
-          console.log('utilisateur bien supprimé', response);
-          if(response.statusCode == 200){
-            this.showSuccess(response.message);
-            this.getAllUser()
-          }else if(response.statusCode == 201 ){
-            this.showDanger(response.message);
-          } else if (response.statusCode == 400 ) {
-            this.showDanger(response.message);
-          }
-        },
-        (error:any) => {
-          this.showDanger(error.message);
-          console.log('error',error);
-        }
-      );
+    this.ServiceApiService.get(endPoint).subscribe(
+      (response:any) => {
+        this.staticHistori = response;
+        console.log('staticHistori+++', this.staticHistori);
+        // this.graphSTat(this.statistic)
+
+      },
+      (error:any) => {
+        console.log('error',error);
+      }
+    );
+  }
+
+  onExpandChange(id: number, checked: boolean): void {
+    if (checked) {
+      this.expandSet.add(id);
     } else {
-      Object.values(this.validateFormRegister.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+      this.expandSet.delete(id);
     }
   }
 
 
-  //enregistrement d'un utilisateur
-  submitFormRegister(): void {
-    let endPoint = "user/add"
-    if (this.validateFormRegister.valid) {
-      this.isConfirmLoading = true;
-      this.ServiceApiService.post(endPoint,this.validateFormRegister.value).subscribe(
-        (response:any) => {
-          console.log('utilisateur bien enregistrer', response);
-          if(response.statusCode == 200){
-            this.showSuccess(response.message);
-            this.isVisible = false;
-            this.isConfirmLoading = false
-            this.validateFormRegister.reset()
-            this.getAllUser()
-          }else if(response.statusCode == 400 ){
-            this.showDanger(response.message);
-            this.isVisible = true;
-            this.isConfirmLoading = false
-          }else if(response.statusCode == 204 ){
-            this.showDanger(response.message);
-            this.isVisible = true;
-            this.isConfirmLoading = false
-          }
-        },
-        (error:any) => {
-          this.showDanger(error.message);
-          this.isVisible = true;
-          this.isConfirmLoading = false
-          console.log('error',error);
-        }
-      );
+  onChange(result: Date): void {
+    console.log('onChange: ', result);
+  }
+
+  goCreateColi(){
+    console.log('goCreateColi');
+    localStorage.setItem('isVilibled', JSON.stringify({gestion: false, create: true}));
+    this.router.navigate(['gestion-colis']);
+  }
+
+
+  updateCheckedSet(id: number, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(id);
     } else {
-      Object.values(this.validateFormRegister.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
+      this.setOfCheckedId.delete(id);
     }
   }
 
+  onItemChecked(id: number, checked: boolean): void {
+    this.updateCheckedSet(id, checked);
+    this.refreshCheckedStatus();
+  }
 
-  UpdateRegistration(){
-    const endPoint = "user";
-    // return;
-    if (this.validateFormRegister.valid) {
-      this.isConfirmLoading = true;
-      this.ServiceApiService.put(endPoint,this.userId,this.validateFormRegister.value).subscribe(
-        (response:any) => {
-          console.log('utilisateur bien modifier', response);
-          if(response.statusCode === 200){
-            this.showSuccess(response.message);
-            this.isVisible = false;
-            this.isConfirmLoading = false
-            this.validateFormRegister.reset()
-            this.getAllUser()
-          }else if(response.statusCode === 400 ){
-            this.showDanger(response.message);
-            this.isVisible = true;
-            this.isConfirmLoading = false
-          } else if (response.statusCode === 204 ) {
-            this.showDanger(response.message);
-            this.isVisible = true;
-            this.isConfirmLoading = false
-          }
-        },
-        (error:any) => {
-          this.showDanger(error.message);
-          this.isVisible = true;
-          this.isConfirmLoading = false
-          console.log('error',error);
-        }
-      );
-    } else {
-      Object.values(this.validateFormRegister.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-    }
+  onAllChecked(value: boolean): void {
+    this.listOfCurrentPageData.forEach((item:any) => this.updateCheckedSet(item.id, value));
+    this.refreshCheckedStatus();
+  }
+
+  refreshCheckedStatus(): void {
+    this.checked = this.listOfCurrentPageData.every((item:any) => this.setOfCheckedId.has(item.id));
+    this.indeterminate = this.listOfCurrentPageData.some((item:any) => this.setOfCheckedId.has(item.id)) && !this.checked;
+  }
+
+
+  ngAfterViewInit() {
+    // this.graphSTat()
   }
 
 
 
-  confirmSubmitCreateUser(typeuser?:any) {
-    Swal.fire({
-      text : "Voulez-vous poursuivre cette action ?",
-      icon : 'warning',
-      showCancelButton : true,
-      confirmButtonText : "Oui",
-      cancelButtonText : "Non",
-      width : '350px',
-    }).then((result) => {
-      if (result.value) {
-        this.submitFormRegister();
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-      }
-    });
-  }
-
-  confirmSubmitUpdateUser(user?:any) {
-    Swal.fire({
-      text : "Voulez-vous poursuivre cette modification ?",
-      icon : 'warning',
-      showCancelButton : true,
-      confirmButtonText : "Oui",
-      cancelButtonText : "Non",
-      width : '350px',
-    }).then((result) => {
-      if (result.value) {
-        this.UpdateRegistration();
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-      }
-    });
-  }
-
-  confirmSubmitDeletUser(user?:any){
-    Swal.fire({
-      text : "Voulez-vous poursuivre cette modification ?",
-      icon : 'warning',
-      showCancelButton : true,
-      confirmButtonText : "Oui",
-      cancelButtonText : "Non",
-      width : '350px',
-    }).then((result) => {
-      if (result.value) {
-        this.DeleteRegistration(user);
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-      }
-    });
-  }
-
-
-
-
-
-  updateConfirmValidator(): void {
-    Promise.resolve().then(() => this.validateFormRegister.controls.checkPassword.updateValueAndValidity());
-  }
 }
