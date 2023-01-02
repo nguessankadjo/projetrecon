@@ -17,30 +17,6 @@ $whiteGrisColor: #E2EBFF;
 $grisLiColor: #F5F5F5;
 $bleu: #304262;
 $grayDark: #9D9D9D;
-@mixin breakpoint-down($breakpoint) {
-    $max: $breakpoint;
-    @if $max {
-        @media (max-width: $max+px) {
-            @content;
-        }
-    }
-    @else {
-        @content;
-    }
-}
-
-@mixin breakpoint-up($breakpoint) {
-    $min: $breakpoint;
-    @if $min {
-        @media (min-width: $min+px) {
-            @content;
-        }
-    }
-    @else {
-        @content;
-    }
-}
-
 .centent-global {
     display: flex;
     flex-direction: column;
