@@ -120,7 +120,6 @@
     </ng-template>
 </nz-modal>
 
-
 <div hidden="true" id="edition-facture">
 
     <div *ngIf="OnFacture.factureCMS" class="centent-edit" style="
@@ -167,7 +166,7 @@ gap: 15px;">
                 </div>
                 <div style="    display: flex;font-size: 12px;
           justify-content: space-between;">
-                    <span>1 BWspan:</span>
+                    <span>1 {{OnFacture.factureCMS.devise}}:</span>
                     <span>{{OnFacture.factureCMS.euro}} Euro</span>
                 </div>
             </div>
@@ -200,7 +199,7 @@ gap: 15px;">
                     <td style="font-size: 12px; white-space: nowrap;">{{item.montantTTC}}</td>
                     <td style="font-size: 12px; white-space: nowrap;">{{item.taxe}}</td>
                     <td style="font-size: 12px; white-space: nowrap;">{{item.montantHT}}</td>
-                    <td style="font-size: 12px; white-space: nowrap;">{{item.euroTTC}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.euroHT}}</td>
                 </tr>
             </table>
         </div>
@@ -225,7 +224,7 @@ gap: 15px;">
                 <tr *ngFor="let item of OnFacture.factureCMS.RPartager">
                     <td style="    font-size: 12px;
             font-weight: 600;font-size: 12px; white-space: nowrap;">{{item.lib}}</td>
-                    <td style="font-size: 12px; white-space: nowrap;">{{item.CAPartager}}</td>
+                    <td style="font-size: 12px; white-space: nowrap;">{{item.montant}}</td>
                     <td style="font-size: 12px; white-space: nowrap;">{{item.part}}</td>
                     <td style="font-size: 12px; white-space: nowrap;">{{item.montantHT}}</td>
                     <td style="font-size: 12px; white-space: nowrap;">{{item.euroHT}}</td>
@@ -295,7 +294,7 @@ gap: 15px;">
                 </div>
                 <div style="    display: flex;font-size: 12px;
           justify-content: space-between;">
-                    <span>1 BW:</span>
+                    <span>1 BWspan:</span>
                     <span>{{OnFacture.factureMIGRES.euro}} Euro</span>
                 </div>
             </div>
